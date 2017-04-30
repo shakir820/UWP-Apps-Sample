@@ -1,0 +1,8 @@
+﻿<Application
+    x:Class="FlipView_Indicator.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FlipView_Indicator"
+    RequestedTheme="Light">
+
+</Application>

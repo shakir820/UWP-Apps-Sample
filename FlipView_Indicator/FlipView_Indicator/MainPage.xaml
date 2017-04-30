@@ -1,0 +1,60 @@
+﻿<Page
+    x:Class="FlipView_Indicator.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FlipView_Indicator"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:my="using:FlipView_Indicator.Controls"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="CustomItemTemplate">
+            <Border CornerRadius="5"
+                    Background="Orange"
+                    HorizontalAlignment="Center"
+                    Padding="5"
+                    Margin="3"/>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <FlipView Name="MyFlipView">
+            <FlipView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Image Source="{Binding ImagePath}" Stretch="Uniform"/>
+                        <Border Background="#A5000000"
+                                VerticalAlignment="Bottom"
+                                Height="80"/>
+                        <TextBlock VerticalAlignment="Bottom" 
+                                   FontWeight="ExtraLight"
+                                   Text="{Binding ImageName}"
+                                   FontFamily="Segoe UI"
+                                   FontSize="26"
+                                   Foreground="#CCFFFFFF"
+                                   Padding="15,20"/>
+                    </Grid>
+                </DataTemplate>
+            </FlipView.ItemTemplate>
+        </FlipView>
+
+        <my:FlipViewIndicator flipView="{Binding ElementName=MyFlipView}" 
+                              ItemTemplate="{StaticResource CustomItemTemplate}"
+                              HorizontalContentAlignment="Left"
+                              HorizontalAlignment="Left"
+                              Grid.Row="1"
+                              Margin="8">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </my:FlipViewIndicator>
+    </Grid>
+</Page>
