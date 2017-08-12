@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Animation_Example.AnimationViews;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,28 +25,72 @@ namespace Animation_Example
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public static MainPage Current;
+
         public MainPage()
         {
             this.InitializeComponent();
-        }
-        private void RemoveButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (rectangleItems.Items.Count > 0)
-                rectangleItems.Items.RemoveAt(0);
+            Current = this;
         }
 
-        private void AddButton_Click(object sender, RoutedEventArgs e)
+        List<Scenario> scenarios = new List<Scenario>
         {
-            Color rectColor = new Color();
-            rectColor.R = 200;
-            rectColor.A = 250;
-            Rectangle myRectangle = new Rectangle();
-            myRectangle.Fill = new SolidColorBrush(rectColor);
-            myRectangle.Width = 100;
-            myRectangle.Height = 100;
-            myRectangle.Margin = new Thickness(10);
-            rectangleItems.Items.Add(myRectangle);
+            new Scenario() { Title = "Add and Delete Animation", ClassType = typeof(AddDelete) },
+            new Scenario() { Title = "Drag and Drop Animation", ClassType = typeof(DragAndDrop) },
+            new Scenario() { Title = "Fade In and Out Animation", ClassType = typeof(FadeInFadeOut) },
+            new Scenario() { Title = "Animation View", ClassType = typeof(AnimationView) },
+            new Scenario() { Title = "Content Theme Transition", ClassType = typeof(ContentThemeTransation) },
+            new Scenario() {Title = "XAML Style", ClassType = typeof(XAMLStyle)}
+        };
 
+        public List<Scenario> Scenarios
+        {
+            get { return this.scenarios; }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Splitter.IsPaneOpen = !Splitter.IsPaneOpen;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            // Populate the scenario list from the SampleConfiguration.cs file
+            ScenarioControl.ItemsSource = scenarios;
+            if (Window.Current.Bounds.Width < 640)
+            {
+                ScenarioControl.SelectedIndex = -1;
+            }
+            else
+            {
+                ScenarioControl.SelectedIndex = 0;
+            }
+        }
+
+        private void ScenarioControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox ScenarioListBox = sender as ListBox;
+            Scenario s = ScenarioListBox.SelectedItem as Scenario;
+            if (s != null)
+            {
+                ScenarioFrame.Navigate(s.ClassType);
+                if (Window.Current.Bounds.Width < 640)
+                    Splitter.IsPaneOpen = false;
+            }
+        }
+    }
+
+
+
+    public class Scenario
+    {
+        public string Title { get; set; }
+
+        public Type ClassType { get; set; }
+
+        public override string ToString()
+        {
+            return Title;
         }
     }
 }
