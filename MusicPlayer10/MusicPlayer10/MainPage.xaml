@@ -1,0 +1,46 @@
+﻿<Page
+    x:Class="MusicPlayer10.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MusicPlayer10"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    
+    <Grid Background="{ThemeResource SystemControlAltHighAcrylicWindowBrush}">
+        <NavigationView x:Name="NavView"
+                        Background="Transparent"
+                    ItemInvoked="NavView_ItemInvoked"
+                    SelectionChanged="NavView_SelectionChanged"
+                    Loaded="NavView_Loaded">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="My Music" Tag="MyMusic" Icon="Audio"/>
+                <NavigationViewItem Content="Recent Plays" Tag="RecentPlays" Icon="Clock"/>
+                <NavigationViewItem Content="Now Playing" Tag="NowPlaying">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon UriSource="ms-appx:///Assets/icons/now_playing.png" Foreground="Black"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItemSeparator/>
+                <NavigationViewItem Content="Playlist" Tag="Playlist" Icon="List"/>
+            </NavigationView.MenuItems>
+            <NavigationView.AutoSuggestBox>
+                <AutoSuggestBox x:Name="ASB" QueryIcon="Find"/>
+            </NavigationView.AutoSuggestBox>
+            <NavigationView.PaneFooter>
+                <HyperlinkButton x:Name="MoreInfoBtn"
+                             Content="More info"
+                             Margin="12,0"/>
+            </NavigationView.PaneFooter>
+
+            <Frame x:Name="ContentFrame" Background="Transparent">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition/>
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
+
+        </NavigationView>
+    </Grid>
+</Page>
