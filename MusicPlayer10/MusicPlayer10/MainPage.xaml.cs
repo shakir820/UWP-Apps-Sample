@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MusicPlayer10.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -23,9 +24,15 @@ namespace MusicPlayer10
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public static MainPage Current;
+        public ObservableCollection<Song> Songs;
+        public info folderInfo;
         public MainPage()
         {
             this.InitializeComponent();
+            Songs = new ObservableCollection<Song>();
+            Current = this;
+            folderInfo = new info();
         }
 
         private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -33,6 +40,7 @@ namespace MusicPlayer10
             if (args.IsSettingsInvoked)
             {
                 ContentFrame.Navigate(typeof(SettingsPage));
+                NavView.Header = "Settings";
             }
             else
             {
@@ -57,9 +65,9 @@ namespace MusicPlayer10
                         ContentFrame.Navigate(typeof(PlaylistPage));
                         NavView.Header = "Playlist";
                         break;
+
                 }
             }
-
         }
 
         private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -67,6 +75,7 @@ namespace MusicPlayer10
             if (args.IsSettingsSelected)
             {
                 ContentFrame.Navigate(typeof(SettingsPage));
+                NavView.Header = "Settings";
             }
             else
             {

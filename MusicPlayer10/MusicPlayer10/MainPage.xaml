@@ -10,7 +10,7 @@
     <Grid Background="{ThemeResource SystemControlAltHighAcrylicWindowBrush}">
         <NavigationView x:Name="NavView"
                         Background="Transparent"
-                    ItemInvoked="NavView_ItemInvoked"
+                        ItemInvoked="NavView_ItemInvoked"
                     SelectionChanged="NavView_SelectionChanged"
                     Loaded="NavView_Loaded">
             <NavigationView.MenuItems>
@@ -33,7 +33,9 @@
                              Margin="12,0"/>
             </NavigationView.PaneFooter>
 
-            <Frame x:Name="ContentFrame" Background="Transparent">
+            
+
+                <Frame x:Name="ContentFrame" Background="Transparent">
                 <Frame.ContentTransitions>
                     <TransitionCollection>
                         <NavigationThemeTransition/>

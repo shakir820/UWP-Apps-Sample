@@ -31,76 +31,19 @@ namespace MusicPlayer10
     public sealed partial class MyMusicPage : Page
     {
         public ObservableCollection<Song> Songs;
+        private MainPage rootpage = MainPage.Current;
 
         public MyMusicPage()
         {
             this.InitializeComponent();
-            Songs = new ObservableCollection<Song>();
+            Songs = rootpage.Songs;
         }
 
         public List<string> fileToken { get; private set; }
 
-
-
-
-
-        private async void GetSongsFromDirectory()
+        private void fetchSongs()
         {
 
-            var folderPicker = new FolderPicker();
-            folderPicker.SuggestedStartLocation = PickerLocationId.Desktop;
-            folderPicker.FileTypeFilter.Add("*");
-
-            StorageFolder folder = await folderPicker.PickSingleFolderAsync();
-            if (folder != null)
-            {
-                // Application now has read/write access to all contents in the picked folder
-                // (including other sub-folder contents)
-                Windows.Storage.AccessCache.StorageApplicationPermissions.
-                FutureAccessList.AddOrReplace("PickedFolderToken", folder);
-            }
-   
-            //MusicPath will track ur folder's path
-            string MusicPath = folder.Path;
-
-            //this section will help you to get only music files among various types of files
-            QueryOptions queryOption = new QueryOptions(CommonFileQuery.OrderByTitle, new string[] { ".mp3", ".mp4", ".wma" });
-            queryOption.FolderDepth = FolderDepth.Deep; //This is for a deep search like search in subfolders
-            Queue<IStorageFolder> folders = new Queue<IStorageFolder>();
-            var files = await folder.CreateFileQueryWithOptions(queryOption).GetFilesAsync();
-
-            foreach (var file in files)
-            {
-                // Store file for future access
-                fileToken.Add(Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Add(file));
-                var properties = file.Properties;
-                MusicProperties musicProperties = await properties.GetMusicPropertiesAsync();
-
-                var song = new Song();
-                song.SongFile = file;
-                song.Title = musicProperties.Title;
-                song.Album = musicProperties.Album;
-                song.AlbumArtist = musicProperties.AlbumArtist;
-                song.Artist = musicProperties.Artist;
-                song.BitRate = musicProperties.Bitrate;
-                song.Composers = musicProperties.Composers;
-                song.Conductors = musicProperties.Conductors;
-                song.Duration = musicProperties.Duration;
-                song.Genre = musicProperties.Genre;
-                song.Producers = musicProperties.Producers;
-                song.Publisher = musicProperties.Publisher;
-                song.Rating = musicProperties.Rating;
-                song.TrackNumber = musicProperties.TrackNumber;
-                song.Writers = musicProperties.Writers;
-                song.Year = musicProperties.Year;
-                Songs.Add(song);
-            }
-            
-        }
-
-        private void pickSongsFolder_Click(object sender, RoutedEventArgs e)
-        {
-            GetSongsFromDirectory();
         }
     }
 }

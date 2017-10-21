@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MusicPlayer10.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,6 +24,8 @@ namespace MusicPlayer10
     /// </summary>
     sealed partial class App : Application
     {
+     
+        
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -30,6 +34,7 @@ namespace MusicPlayer10
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+   
         }
 
         /// <summary>

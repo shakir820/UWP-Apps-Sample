@@ -8,6 +8,10 @@
     mc:Ignorable="d">
 
     <Grid Background="Transparent">
-
+        <Button Name="pickSongs" 
+                Content="Pick Songs" 
+                Click="pickSongs_Click"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"/>
     </Grid>
 </Page>

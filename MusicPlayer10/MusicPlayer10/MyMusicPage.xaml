@@ -15,22 +15,24 @@
                     <TextBlock Text="Songs" />
                 </PivotItem.Header>
                 <!--Pivot content goes here-->
-                <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                    <ListView Name="SongsListView" 
-                          ItemsSource="{x:Bind Songs}"
-                          VerticalAlignment="Stretch" 
+                <ScrollViewer HorizontalScrollBarVisibility="Visible">
+                    <StackPanel VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                        <ListView Name="SongsListView"
+                              ItemsSource="{x:Bind Songs}"
+                          VerticalAlignment="Top" 
                           HorizontalAlignment="Stretch">
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="model:Song">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{x:Bind Title}"/>
-                                    <TextBlock Text="{x:Bind Artist}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <Button Name="pickSongsFolder" Content="Pick Songs" Click="pickSongsFolder_Click"/>
-                </StackPanel>
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="model:Song">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{x:Bind Name}"/>
+                                        <TextBlock Text="{x:Bind Artist}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        
+                    </StackPanel>
+                </ScrollViewer>
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>
