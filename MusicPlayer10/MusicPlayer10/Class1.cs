@@ -28,7 +28,7 @@ namespace MusicPlayer10
     [Serializable]
     public class info
     {
-        public string[] FolderPath; 
+        public List<string> FolderPath; 
     }
 
     //[Serializable]
@@ -38,4 +38,17 @@ namespace MusicPlayer10
     //    public int n2 = 0;
     //    public String str = null;
     //}
+
+
+    public class Artist
+    {
+        private string name;
+        private int count;
+
+        public string Name { get; private set; }
+        public int Count { get; private set; }
+    }
+
+
+
 }

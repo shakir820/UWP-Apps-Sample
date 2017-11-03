@@ -1,7 +1,5 @@
-﻿using MusicPlayer10.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -17,7 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace MusicPlayer10
+namespace SemanticZoomSample
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.

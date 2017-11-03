@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -30,7 +31,6 @@ namespace MusicPlayer10
     {
         public static SettingsPage current;
         private MainPage rootpage = MainPage.Current;
-        private ObservableCollection<Song> Songs;
 
         public string str;
 
@@ -38,7 +38,6 @@ namespace MusicPlayer10
         {
             this.InitializeComponent();
             current = this;
-            Songs = rootpage.Songs;
         }
 
 
@@ -57,8 +56,17 @@ namespace MusicPlayer10
                 Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.AddOrReplace("PickedFolderToken", folder);
                 
                 //keep track of the specified folder
-                var len = rootpage.folderInfo.FolderPath.Length;
-                rootpage.folderInfo.FolderPath[len] = folder.Path;
+                if(rootpage.folderInfo.FolderPath != null)
+                {
+                    rootpage.folderInfo.FolderPath.Add(folder.Path);
+                }
+                else
+                {
+                    rootpage.folderInfo.FolderPath = new List<string>();
+                    rootpage.folderInfo.FolderPath.Add(folder.Path);
+                }
+                
+                rootpage.savefile();
 
                 //this section will help you to get only music files among various types of files
                 List<string> fileTypeFilter = new List<string>();
@@ -95,13 +103,12 @@ namespace MusicPlayer10
                     song.TrackNumber = musicProperties.TrackNumber;
                     song.Writers = musicProperties.Writers;
                     song.Year = musicProperties.Year;
-                    Songs.Add(song);
+                    rootpage.Songs.Add(song);
                 }
             }
-            rootpage.Songs = Songs;
         }
 
-
+ 
         private void pickSongs_Click(object sender, RoutedEventArgs e)
         {
             GetSongsFromDirectory();

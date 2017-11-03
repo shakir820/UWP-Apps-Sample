@@ -15,22 +15,21 @@
                     <TextBlock Text="Songs" />
                 </PivotItem.Header>
                 <!--Pivot content goes here-->
-                <ScrollViewer HorizontalScrollBarVisibility="Visible">
+                <ScrollViewer>
                     <StackPanel VerticalAlignment="Top" HorizontalAlignment="Stretch">
                         <ListView Name="SongsListView"
-                              ItemsSource="{x:Bind Songs}"
+                              ItemsSource="{x:Bind rootpage.Songs}"
                           VerticalAlignment="Top" 
                           HorizontalAlignment="Stretch">
                             <ListView.ItemTemplate>
                                 <DataTemplate x:DataType="model:Song">
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{x:Bind Name}"/>
-                                        <TextBlock Text="{x:Bind Artist}"/>
+                                        <TextBlock Text="{x:Bind Name}" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{x:Bind Artist}" TextWrapping="Wrap"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
-                        
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
@@ -39,7 +38,14 @@
                     <TextBlock Text="Artists" FontStretch="Undefined"/>
                 </PivotItem.Header>
                 <!--Pivot content goes here-->
-                <TextBlock Text="Content of pivot item 2."/>
+                <GridView ItemsSource="">
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Width="200" Height="250" CornerRadius="3,3,3,3">
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>
