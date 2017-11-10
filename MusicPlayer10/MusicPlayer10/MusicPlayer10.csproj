@@ -99,6 +99,9 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\ArtistData.cs" />
+    <Compile Include="Model\GroupData.cs" />
+    <Compile Include="Model\GroupDataSource.cs" />
     <Compile Include="Model\Song.cs" />
     <Compile Include="MyMusicPage.xaml.cs">
       <DependentUpon>MyMusicPage.xaml</DependentUpon>

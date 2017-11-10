@@ -197,7 +197,15 @@ namespace MusicPlayer10
                             song.Title = musicProperties.Title;
                             song.Album = musicProperties.Album;
                             song.AlbumArtist = musicProperties.AlbumArtist;
-                            song.Artist = musicProperties.Artist;
+                            if(musicProperties.Artist == "")
+                            {
+
+                                song.Artist = @"#";
+                            }
+                            else
+                            {
+                                song.Artist = musicProperties.Artist;
+                            }                            
                             song.BitRate = musicProperties.Bitrate;
                             song.Composers = musicProperties.Composers;
                             song.Conductors = musicProperties.Conductors;
@@ -226,18 +234,18 @@ namespace MusicPlayer10
 
         }
 
-        public List<string> getArtists()
-        {
-            List<string> artists = new List<string>();
-            List<string> artistsList = new List<string>();
-            foreach(var song in Songs)
-            {
-                artists.Add(song.Artist);
-            }
+        //public List<string> getArtists()
+        //{
+        //    List<string> artists = new List<string>();
+        //    List<string> artistsList = new List<string>();
+        //    foreach(var song in Songs)
+        //    {
+        //        artists.Add(song.Artist);
+        //    }
 
-            artistsList = (List<string>)artists.Distinct();
+        //    artistsList = (List<string>)artists.Distinct();
 
-            return artistsList;
-        }
+        //    return artistsList;
+        //}
     }
 }

@@ -91,7 +91,15 @@ namespace MusicPlayer10
                     song.Title = musicProperties.Title;
                     song.Album = musicProperties.Album;
                     song.AlbumArtist = musicProperties.AlbumArtist;
-                    song.Artist = musicProperties.Artist;
+                    if (musicProperties.Artist == "")
+                    {
+
+                        song.Artist = @"#";
+                    }
+                    else
+                    {
+                        song.Artist = musicProperties.Artist;
+                    }
                     song.BitRate = musicProperties.Bitrate;
                     song.Composers = musicProperties.Composers;
                     song.Conductors = musicProperties.Conductors;

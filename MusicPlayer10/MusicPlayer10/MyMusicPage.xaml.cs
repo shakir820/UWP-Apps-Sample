@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
@@ -14,13 +16,16 @@ using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Pickers;
 using Windows.Storage.Search;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Shapes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -31,14 +36,52 @@ namespace MusicPlayer10
     /// </summary>
     public sealed partial class MyMusicPage : Page
     {
-
+        public IEnumerable<GroupData> ArtistData;
         public ObservableCollection<Song> Songs;
-        private MainPage rootpage = MainPage.Current;
+        private MainPage rootpage;
 
         public MyMusicPage()
         {
+            rootpage = MainPage.Current;
             this.InitializeComponent();
+            //InitializeDropShadow(ShadowHost, CircleImage);
+            ArtistData  = GroupDataSource.getGroupDataSource();
         }
+
+
+   
+
+  
+
+
+
+
+        //private void InitializeDropShadow(UIElement shadowHost, Shape shadowTarget)
+        //{
+        //    Visual hostVisual = ElementCompositionPreview.GetElementVisual(shadowHost);
+        //    Compositor compositor = hostVisual.Compositor;
+
+        //    // Create a drop shadow
+        //    var dropShadow = compositor.CreateDropShadow();
+        //    dropShadow.Color = Windows.UI.Color.FromArgb(255, 75, 75, 80);
+        //    dropShadow.BlurRadius = 15.0f;
+        //    dropShadow.Offset = new Vector3(2.5f, 2.5f, 0.0f);
+        //    // Associate the shape of the shadow with the shape of the target element
+        //    dropShadow.Mask = shadowTarget.GetAlphaMask();
+
+        //    // Create a Visual to hold the shadow
+        //    var shadowVisual = compositor.CreateSpriteVisual();
+        //    shadowVisual.Shadow = dropShadow;
+
+        //    // Add the shadow as a child of the host in the visual tree
+        //    ElementCompositionPreview.SetElementChildVisual(shadowHost, shadowVisual);
+
+        //    // Make sure size of shadow host and shadow visual always stay in sync
+        //    var bindSizeAnimation = compositor.CreateExpressionAnimation("hostVisual.Size");
+        //    bindSizeAnimation.SetReferenceParameter("hostVisual", hostVisual);
+
+        //    shadowVisual.StartAnimation("Size", bindSizeAnimation);
+        //}
 
         //private async void fetchsongsAsync()
         //{
@@ -94,8 +137,8 @@ namespace MusicPlayer10
         //    {
         //        return;
         //    }
-            
+
         //}
-        public List<string> fileToken { get; private set; }      
+        public List<string> fileToken { get; private set; }
     }
 }

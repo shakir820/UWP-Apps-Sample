@@ -6,9 +6,22 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="using:MusicPlayer10.Model"
+    xmlns:wuxdata="using:Windows.UI.Xaml.Data"
     mc:Ignorable="d">
+    <Page.Resources>
+        <CollectionViewSource x:Name="CVS" 
+                              Source="{x:Bind ArtistData}" 
+                              IsSourceGrouped="True" 
+                              ItemsPath="Artist"/>
 
-    <Grid Background="Transparent">
+        <DataTemplate x:Key="ZoomedInGroupHeaderTemplate" 
+                      x:DataType="model:GroupData">
+            <TextBlock Text="{x:Bind HeaderTitle}" 
+                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
+                       Style="{StaticResource SubtitleTextBlockStyle}"/>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid Background="White">
         <Pivot x:Name="rootPivot">
             <PivotItem>
                 <PivotItem.Header>
@@ -38,14 +51,37 @@
                     <TextBlock Text="Artists" FontStretch="Undefined"/>
                 </PivotItem.Header>
                 <!--Pivot content goes here-->
-                <GridView ItemsSource="">
-                    <GridView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Width="200" Height="250" CornerRadius="3,3,3,3">
-                            </Grid>
-                        </DataTemplate>
-                    </GridView.ItemTemplate>
-                </GridView>
+                <SemanticZoom Name="semanticZoom" 
+                              VerticalAlignment="Stretch" 
+                              HorizontalAlignment="Stretch">
+                    <SemanticZoom.ZoomedInView>
+                        <ListView ItemsSource="{x:Bind CVS.View}" 
+                                  SelectionMode="None" >
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="model:ArtistData">
+                                    <StackPanel>
+                                        <TextBlock Text="{x:Bind ArtistName}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <ListView.GroupStyle>
+                                <GroupStyle HeaderTemplate="{StaticResource ZoomedInGroupHeaderTemplate}"/>
+                            </ListView.GroupStyle>
+                        </ListView>
+                    </SemanticZoom.ZoomedInView>
+                    <SemanticZoom.ZoomedOutView>
+                        <ListView ItemsSource="{x:Bind CVS.View.CollectionGroups}" 
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"
+                                  SelectionMode="None">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="wuxdata:ICollectionViewGroup">
+                                    <TextBlock Text="{x:Bind Group.(model:GroupData.HeaderTitle)}" Foreground="Blue"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </SemanticZoom.ZoomedOutView>
+                </SemanticZoom>
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>
